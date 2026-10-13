@@ -1,0 +1,27 @@
+{
+  "name": "node_backend",
+  "version": "1.0.0",
+  "description": "Node backend development",
+  "homepage": "https://github.com/Godfred48/node-backend-#readme",
+  "bugs": {
+    "url": "https://github.com/Godfred48/node-backend-/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Godfred48/node-backend-.git"
+  },
+  "license": "ISC",
+  "author": "Godfred Agbogah",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+  "dev": "nodemon",
+  "start": "node server.js"
+},
+  "dependencies": {
+    "express": "^5.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
