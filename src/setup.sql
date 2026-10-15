@@ -1,3 +1,4 @@
+---create organization table 
 CREATE TABLE organization(
 organization_id SERIAL PRIMARY KEY,
 organization_name VARCHAR(150) NOT NULL,
@@ -13,3 +14,43 @@ VALUES
 ('UnityServe Volunteers', 'A volunteer coordination group supporting local charities and service initiatives.', 'hello@unityserve.org', 'unityserve-logo.png');
 
 SELECT * FROM organization;
+
+---create service project table
+CREATE TABLE service_projects (
+  project_id SERIAL PRIMARY KEY,
+  organization_id  INTEGER,
+  title           VARCHAR(150) NOT NULL,
+  description     TEXT NOT NULL,
+  project_location VARCHAR(255) NOT NULL,
+  project_date    DATE NOT NULL,
+  FOREIGN KEY (organization_id) REFERENCES organization(organization_id)
+);
+
+INSERT INTO service_projects (organization_id, title, description, project_location, project_date) VALUES
+-- Organization 1
+(1, 'Community Beach Cleanup', 'Volunteers collect plastic and waste along the shoreline.', 'Labadi Beach, Accra', '2026-11-07'),
+(1, 'School Painting Day', 'Repaint classrooms and fences at a public primary school.', 'Madina, Accra', '2026-11-21'),
+(1, 'Tree Planting Drive', 'Plant 200 seedlings to restore a degraded green space.', 'Aburi, Eastern Region', '2026-12-05'),
+(1, 'Food Drive', 'Collect and distribute food packages to families in need.', 'Nima, Accra', '2026-12-12'),
+(1, 'Neighborhood Clean-Up', 'Clear drains and sweep streets in the community.', 'Kaneshie, Accra', '2027-01-16');
+
+INSERT INTO service_projects (organization_id, title, description, project_location, project_date) VALUES
+-- Organization 2
+(2, 'Free Health Screening', 'Basic blood pressure and sugar checks for residents.', 'Tema Community 4', '2026-11-14'),
+(2, 'Coding Workshop for Teens', 'Introductory HTML and CSS class for high school students.', 'Osu, Accra', '2026-11-28'),
+(2, 'Library Book Donation', 'Collect and deliver books to a rural school library.', 'Ho, Volta Region', '2026-12-09'),
+(2, 'Senior Care Visit', 'Spend time with and assist elderly residents at a care home.', 'East Legon, Accra', '2027-01-09'),
+(2, 'Blood Donation Drive', 'Partner with the hospital to collect blood donations.', 'Korle Bu, Accra', '2027-01-30');
+
+INSERT INTO service_projects (organization_id, title, description, project_location, project_date) VALUES
+-- Organization 3
+(3, 'Clothing Giveaway', 'Distribute gently used clothing to families.', 'Ashaiman', '2026-11-10'),
+(3, 'Water Well Repair', 'Help repair a community borehole and train residents on upkeep.', 'Kpando, Volta Region', '2026-11-26'),
+(3, 'Youth Mentorship Day', 'Professionals mentor students on career paths.', 'Legon, Accra', '2026-12-17'),
+(3, 'Market Waste Sorting', 'Set up recycling bins and teach sorting at a local market.', 'Makola Market, Accra', '2027-01-23'),
+(3, 'Park Renovation', 'Fix benches and repaint playground equipment.', 'Adenta, Accra', '2027-02-06');
+
+
+SELECT title,project_location,project_date 
+FROM service_projects
+WHERE organization_id = 2
