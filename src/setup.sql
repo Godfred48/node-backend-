@@ -51,6 +51,67 @@ INSERT INTO service_projects (organization_id, title, description, project_locat
 (3, 'Park Renovation', 'Fix benches and repaint playground equipment.', 'Adenta, Accra', '2027-02-06');
 
 
-SELECT title,project_location,project_date 
-FROM service_projects
-WHERE organization_id = 2
+-- SELECT title,project_location,project_date 
+-- FROM service_projects
+-- WHERE organization_id = 2
+
+ 
+
+--categories page
+CREATE TABLE categories(
+	category_id SERIAL PRIMARY KEY,
+	category_name VARCHAR(150) NOT NULL
+);
+
+INSERT INTO categories(category_name)
+VALUES  
+('Environmental'),
+('Education'),
+('Health'),
+('Community Support'),
+('Infrastructure');
+
+SELECT * FROM categories 
+
+
+--joint table from service _project and categories (many to many)
+CREATE TABLE project_categories(
+	project_id INT,
+	category_id INT,
+	PRIMARY KEY (project_id, category_id),
+	FOREIGN KEY (project_id) REFERENCES service_projects (project_id),
+	FOREIGN KEY (category_id) REFERENCES categories (category_id)
+	);
+
+
+INSERT INTO project_categories (project_id, category_id) VALUES
+-- BrightFuture Builders
+(1, 1),   -- Community Beach Cleanup: Environmental
+(2, 2),   -- School Painting Day: Education
+(2, 5),   -- School Painting Day: Infrastructure
+(3, 1),   -- Tree Planting Drive: Environmental
+(4, 4),   -- Food Drive: Community Support
+(5, 1),   -- Neighborhood Clean-Up: Environmental
+(5, 5),   -- Neighborhood Clean-Up: Infrastructure
+
+-- GreenHarvest Growers
+(6, 3),   -- Free Health Screening: Health
+(7, 2),   -- Coding Workshop for Teens: Education
+(8, 2),   -- Library Book Donation: Education
+(8, 4),   -- Library Book Donation: Community Support
+(9, 3),   -- Senior Care Visit: Health
+(9, 4),   -- Senior Care Visit: Community Support
+(10, 3),  -- Blood Donation Drive: Health
+
+-- UnityServe Volunteers
+(11, 4),  -- Clothing Giveaway: Community Support
+(12, 5),  -- Water Well Repair: Infrastructure
+(12, 3),  -- Water Well Repair: Health
+(13, 2),  -- Youth Mentorship Day: Education
+(14, 1),  -- Market Waste Sorting: Environmental
+(15, 5),  -- Park Renovation: Infrastructure
+(15, 1);  -- Park Renovation: Environmental
+
+SELECT * FROM project_categories;
+
+
