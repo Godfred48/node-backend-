@@ -28,6 +28,21 @@ app.set('view engine', 'ejs');
 // Tell Express where to find your templates
 app.set('views', path.join(__dirname, 'src/views'));
 
+//Middlmeware to log all incoming request into terminal 
+app.use((req, res, next) => {
+  if (NODE_ENV === 'development'){
+    console.log(`${req.method} ${req.url}`);
+  }
+  next(); //Pass control to the next non error function
+})
+
+//making the node environment available for all pages....view footer it has been passed
+app.use((req, res, next) =>{
+  res.locals.NODE_ENV = NODE_ENV //res.locals helps store values in middleware 
+  next() //runs the next non-error middleware
+});
+
+
 /**
   * Routes
   */
