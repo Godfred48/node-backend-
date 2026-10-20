@@ -71,10 +71,44 @@ app.get('/categories', async (req, res) => {
 
   const title = 'Project Categories';
   res.render('categories', {title, categories})
-})
-   
-   
+});
 
+// Test route for 500 errors
+app.get('/test-error', (req, res, next) => {
+    const err = new Error('This is a test error');
+    err.status = 500;
+    next(err);
+});
+   
+//catch all route for 404 errors
+app.use((req, res, next) =>{
+  const err = new Error ("Page Not Found!") //Explicitly call an error is page is not found
+  err.status = 404; //assign error to a status code
+  next(err) ;//call an error handlling function
+});
+
+//Global Error handler
+app.use((err, req, res, next) =>{
+  //log the error to the console ussing err message and stake to trace 
+  console.error('Error occured:', err.message);
+  console.error('Stack trace:' ,err.stack);
+
+  //determine the error status and error template to display
+  const status = err.status || 500;
+  const template = status === 404 ? '404' : '500';
+
+  //prepare the data for the template
+  //context is displayed as an object with key and its properties
+  const context = {
+    title : status === 404 ? 'Page Not Found' : 'Server Error',
+    error : err.message,
+    stack: err.stack
+
+  };
+
+  //render details to page (appropriate error template)
+  res.status(status).render(`errors/${template}`, context);
+});
 
 app.listen(PORT, async() => {
   try{
