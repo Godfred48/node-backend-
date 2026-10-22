@@ -235,3 +235,33 @@ footer p {
     text-align: center;
   }
 }
+
+
+.org-info {
+  flex: 1;
+}
+
+.details-link {
+  margin-left: auto;
+  flex-shrink: 0;
+  padding: 0.5rem 1rem;
+  background: var(--navy);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.details-link:hover,
+.details-link:focus {
+  background: var(--navy-dark);
+  color: #f1d58a;
+}
+
+@media (max-width: 600px) {
+  .details-link {
+    margin: 0.5rem auto 0;
+  }
+}

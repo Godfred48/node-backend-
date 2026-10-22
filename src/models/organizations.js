@@ -12,4 +12,23 @@ const getAllOrganizations = async ()=>{
    return result.rows;
 }
 
-export {getAllOrganizations}
+//retrieving organization details
+const getOrganizationDetails = async(organizationId)=>{
+    //query to retrieve organization details from database
+    const query = `
+    SELECT 
+    organization_id,
+    organization_name,
+    description,
+    contact_email,
+    logo_filename
+    FROM organization
+    WHERE organization_id = $1
+    `
+    const queryParams = [organizationId] //enable get access to details of the id in question
+    const result = await db.query(query, queryParams); //assign query result and id in question as one
+
+    return result.rows.length > 0 ? result.rows[0] : null; // return result.
+
+}
+export {getAllOrganizations, getOrganizationDetails}

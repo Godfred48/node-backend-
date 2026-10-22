@@ -19,4 +19,23 @@ ORDER BY sp.organization_id, sp.project_date;
     return result.rows;
 }
 
-export { getAllProjects}
+const getProjectByOrganizationId = async(organizationId)=>{
+  const query=  `
+    SELECT 
+    project_id,
+    organization_id,
+    title,
+    description,
+    project_location ,
+    project_date
+    FROM service_projects
+    WHERE organization_id = $1
+    ORDER BY project_date;
+    `
+    const queryParams = [organizationId];
+    const results = await db.query(query, queryParams);
+
+    return results.rows//.length > 0  ? results.rows[0] : null;
+}
+
+export { getAllProjects, getProjectByOrganizationId }

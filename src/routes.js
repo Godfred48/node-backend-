@@ -5,14 +5,16 @@ import { showCategoriesPage } from './controllers/categories.js';
 import { showOrganizationsPage } from './controllers/organization.js';
 import { showProjectsPage } from './controllers/projects.js';
 import { testErrorPage } from './controllers/errors.js';
+import { showOrganizationDetailsPage } from './controllers/organization.js';
 
-const router = express.Router(); //assign router from express as router
+const router = express.Router(); //assign Router from express as router
 
 
 router.get('/', showHomePage);
 router.get('/organizations', showOrganizationsPage);
 router.get('/projects', showProjectsPage);
 router.get('/categories', showCategoriesPage);
+router.get('/organization/:id', showOrganizationDetailsPage);
 
 // error-handling routes
 router.get('/test-error', testErrorPage);
