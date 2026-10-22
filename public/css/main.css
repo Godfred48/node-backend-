@@ -265,3 +265,41 @@ footer p {
     margin: 0.5rem auto 0;
   }
 }
+
+/* ===== Project details page ===== */
+.project-details {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--navy);
+  border-radius: 4px;
+  padding: 1.5rem 2rem;
+  margin-top: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+}
+
+.project-details h2 {
+  text-align: left;
+  font-size: 1.3rem;
+  margin-top: 1.5rem;
+}
+
+.project-card h3 a {
+  color: var(--navy);
+  text-decoration: none;
+}
+
+.project-card h3 a:hover,
+.project-card h3 a:focus {
+  color: var(--gold);
+  text-decoration: underline;
+}
+
+.project-org a {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.project-org a:hover,
+.project-org a:focus {
+  text-decoration: underline;
+}
