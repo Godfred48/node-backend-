@@ -83,4 +83,28 @@ const getProjectsDetails = async(id)=>{
     return results.rows[0];
 }
 
-export { getAllProjects, getProjectByOrganizationId, getUpcomingProjects, getProjectsDetails}
+
+// 3. Retrieve all service projects for a given category
+const getProjectsByCategoryId = async (categoryId) => {
+    const query = `
+        SELECT
+            sp.project_id,
+            sp.title,
+            sp.description,
+            sp.project_date,
+            sp.project_location ,
+            sp.organization_id,
+            o.organization_name
+        FROM service_projects sp
+        JOIN project_categories pc
+            ON sp.project_id = pc.project_id
+        JOIN organization o
+            ON sp.organization_id = o.organization_id
+        WHERE pc.category_id = $1
+        ORDER BY sp.project_date ASC;
+    `;
+    const queryParams = [categoryId];
+    const result = await db.query(query, queryParams);
+    return result.rows;
+};
+export { getAllProjects, getProjectByOrganizationId, getUpcomingProjects, getProjectsDetails, getProjectsByCategoryId}

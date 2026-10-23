@@ -7,7 +7,7 @@ import { showProjectsPage } from './controllers/projects.js';
 import { testErrorPage } from './controllers/errors.js';
 import { showOrganizationDetailsPage } from './controllers/organization.js';
 import { showProjectDetailsPage } from './controllers/projects.js';
-
+import { showCategoryDetailsPage } from './controllers/categories.js';
 const router = express.Router(); //assign Router from express as router
 
 
@@ -17,7 +17,7 @@ router.get('/projects', showProjectsPage);
 router.get('/categories', showCategoriesPage);
 router.get('/organization/:id', showOrganizationDetailsPage);
 router.get('/project/:id', showProjectDetailsPage);
-
+router.get('/category/:id', showCategoryDetailsPage)
 // error-handling routes
 router.get('/test-error', testErrorPage);
 

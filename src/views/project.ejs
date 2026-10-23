@@ -12,6 +12,8 @@
         <ul class="project-meta">
             <li><strong>Date:</strong> <%= new Date(project.project_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) %></li>
             <li><strong>Location:</strong> <%= project.project_location %></li>
+            <li><strong>Category:</strong> <%= project.category_name %></li>
+            
         </ul>
 
         <h2>About this project</h2>
