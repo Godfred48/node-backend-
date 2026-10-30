@@ -303,3 +303,82 @@ footer p {
 .project-org a:focus {
   text-decoration: underline;
 }
+
+/* ===== Forms ===== */
+main form {
+  max-width: 560px;
+  margin: 2rem auto 0;
+  padding: 2rem;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--navy);
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--navy);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.form-group textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  background: #fff;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.2);
+}
+
+main form button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  font-family: inherit;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--navy);
+  border: none;
+  border-bottom: 3px solid var(--gold);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+main form button[type="submit"]:hover,
+main form button[type="submit"]:focus {
+  background: var(--navy-dark);
+  color: #f1d58a;
+}
+
+@media (max-width: 600px) {
+  main form {
+    padding: 1.25rem;
+  }
+}

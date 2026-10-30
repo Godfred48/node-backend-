@@ -1,6 +1,7 @@
 import { getAllOrganizations } from '../models/organizations.js';
 import { getOrganizationDetails } from '../models/organizations.js';
 import { getProjectByOrganizationId } from '../models/projects.js';
+import { createOrganization } from '../models/organizations.js';
 
 const showOrganizationsPage =  async(req, res) => {
     const organizations = await getAllOrganizations();
@@ -20,4 +21,20 @@ const showOrganizationDetailsPage = async(req, res)=>{
 
 }
 
-export { showOrganizationsPage, showOrganizationDetailsPage }
+const showNewOrganizationForm = (req, res)=> {
+  const title = 'New Organizatioion Page';
+
+  res.render('new-organization', {title});
+}
+
+//FUNCTION RESPONSIBLE FOR PROCESSING THE NE ORGANIZATION FOR WHEN SUBMITTED
+const processNeworganizationForm = async (req, res) => {
+  const {name, description, contactEmail} = req.body;
+  const logoFilename = 'placeholder-logo.png'; // Use the placeholder logo for all new organizations
+
+  const organizationId = await createOrganization(name, description, contactEmail, logoFilename);
+  res.redirect(`/organization/${organizationId}`)  //we redirect to a different page automatically after the organization is created and id is generated
+}
+
+export { showOrganizationsPage, showOrganizationDetailsPage,
+   showNewOrganizationForm,processNeworganizationForm }
