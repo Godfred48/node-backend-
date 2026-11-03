@@ -382,3 +382,118 @@ main form button[type="submit"]:focus {
     padding: 1.25rem;
   }
 }
+/* ===== Flash messages ===== */
+.flash-messages {
+  width: 100%;
+  max-width: 960px;
+  margin: 1rem auto 0;
+  padding: 0 1rem; /* Slightly reduced horizontal padding for mobile */
+  box-sizing: border-box; /* Ensures padding doesn't cause overflow */
+}
+
+.flash {
+  position: relative;
+  margin-bottom: 0.75rem;
+  padding: 0.9rem 1.25rem 0.9rem 3rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--navy);
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  word-wrap: break-word; /* Prevents long words/links from breaking layout */
+  overflow-wrap: break-word;
+}
+
+/* Icon circle */
+.flash::before {
+  content: "i";
+  position: absolute;
+  left: 0.85rem; /* Tucked slightly closer to the edge on mobile */
+  top: 1rem;     /* Changed from translateY to fixed top alignment for multi-line support */
+  transform: none;
+  width: 1.35rem;
+  height: 1.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #fff;
+  background: var(--navy);
+  border-radius: 50%;
+}
+
+/* Success */
+.flash-success {
+  background: #eef7ef;
+  color: #1e4d2b;
+  border-color: #cfe5d3;
+  border-left-color: #2e7d46;
+}
+.flash-success::before {
+  content: "\2713";
+  background: #2e7d46;
+}
+
+/* Error / danger */
+.flash-error,
+.flash-danger {
+  background: #fbefee;
+  color: #7a1f1a;
+  border-color: #f0cfcc;
+  border-left-color: #b3392f;
+}
+.flash-error::before,
+.flash-danger::before {
+  content: "!";
+  background: #b3392f;
+}
+
+/* Warning */
+.flash-warning {
+  background: #fdf6e3;
+  color: #6b4e08;
+  border-color: #f0e0b2;
+  border-left-color: var(--gold);
+}
+.flash-warning::before {
+  content: "!";
+  background: var(--gold);
+}
+
+/* Info */
+.flash-info {
+  background: #eef2f8;
+  color: var(--navy-dark);
+  border-color: #d3dcea;
+  border-left-color: var(--navy);
+}
+.flash-info::before {
+  content: "i";
+  background: var(--navy);
+}
+
+/* Mobile Screens Adjustments */
+@media (max-width: 600px) {
+  .flash-messages {
+    padding: 0 0.75rem; /* Tighter padding on very small screens */
+  }
+
+  .flash {
+    padding: 0.8rem 1rem 0.8rem 2.75rem; /* Compact padding */
+    font-size: 0.9rem;                  /* Slightly smaller readable font */
+    line-height: 1.4;
+  }
+
+  .flash::before {
+    left: 0.75rem;
+    top: 0.9rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    font-size: 0.8rem;
+  }
+}

@@ -3,11 +3,14 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import { testConnection } from './src/models/db.js';
 import router from './src/routes.js';
+import session from 'express-session';
+import flash from './src/middleware/flash.js';
 
 // Define the application environment
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const SESSION_SECRET = process.env.SESSION_SECRET;
 
 // Define the port number the server will listen on
 const PORT = process.env.PORT || 3000;
@@ -25,6 +28,18 @@ app.set('view engine', 'ejs');
 
 // Tell Express where to find your templates
 app.set('views', path.join(__dirname, 'src/views'));
+
+
+// Middleware to Set up session management
+app.use(session({
+  secret: SESSION_SECRET,
+  resave: false, //control session saving behaviour ... same as saveUninitialized
+  saveUninitialized: true, 
+  cookie: { maxAge: 60 * 60 * 1000 } // Session expires after 1 hour of inactivity
+}));
+
+//middleware for flash messaging 
+app.use(flash);
 
 //Middlmeware to log all incoming request into terminal 
 app.use((req, res, next) => {
