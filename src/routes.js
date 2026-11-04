@@ -8,6 +8,7 @@ import { testErrorPage } from './controllers/errors.js';
 import { showProjectDetailsPage } from './controllers/projects.js';
 import { showCategoryDetailsPage } from './controllers/categories.js';
 import {  showOrganizationDetailsPage ,showNewOrganizationForm, processNewOrganizationForm, organizationValidation} from './controllers/organization.js';
+import { showEditOrganizationForm , processEditOrganizationForm} from './controllers/organization.js';
 const router = express.Router(); //assign Router from express as router
 
 
@@ -20,6 +21,8 @@ router.get('/project/:id', showProjectDetailsPage);
 router.get('/category/:id', showCategoryDetailsPage)
 router.get('/new-organization', showNewOrganizationForm);
 router.post('/new-organization',organizationValidation, processNewOrganizationForm);
+router.get('/edit-organization/:id', showEditOrganizationForm);
+router.post('/edit-organization/:id', organizationValidation, processEditOrganizationForm);
 // error-handling routes
 router.get('/test-error', testErrorPage);
 

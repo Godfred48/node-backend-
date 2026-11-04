@@ -64,4 +64,28 @@ const createOrganization = async (name, description, contactEmail, logoFilename)
 
     return result.rows[0].organization_id;//return organization id after insertion is done successfully
 }
-export {getAllOrganizations, getOrganizationDetails, createOrganization}
+
+//creating function to edit organization
+const updateOrganization = async (organizationId, name, description, contactEmail, logoFilename) => {
+    const query = `
+        UPDATE organization 
+        SET organization_name = $1, description = $2 ,contact_email = $3, logo_Filename = $4
+        WHERE organization_id = $5
+        RETURNING organization_id ;
+    `;
+
+    const queryParams = [ name, description, contactEmail, logoFilename, organizationId];
+    const results = await db.query(query, queryParams);
+
+    if( results.rows.length === 0){
+        throw new Error("Organization not found");
+    };
+    //to display id in terminal during developmemnt 
+    if (process.env.ENABLE_SQL_LOGGING === 'true') {
+        console.log('Updated organization with ID:', organizationId);
+      }
+
+      //return organization id
+    return results.rows[0].organization_id;
+}
+export {getAllOrganizations, getOrganizationDetails, createOrganization, updateOrganization}
