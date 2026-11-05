@@ -33,7 +33,7 @@ const getCategoriesByServiceProjectId = async(projectId) => {
     ORDER BY c.category_name ASC;
     `
     const queryParams = [projectId];
-    const results = db.query(query, queryParams)
+    const results = await db.query(query, queryParams)
 
     return results.rows;
 

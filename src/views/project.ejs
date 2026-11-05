@@ -12,7 +12,17 @@
         <ul class="project-meta">
             <li><strong>Date:</strong> <%= new Date(project.project_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) %></li>
             <li><strong>Location:</strong> <%= project.project_location %></li>
-            <li><strong>Category:</strong> <%= project.category_name %></li>
+            <li>
+                <!---this is used incase there are no categories or cathegiries are two or more -->
+                <strong>Categories:</strong>
+                <% if (categories.length === 0) { %>
+                    None
+                <% } else { %>
+                    <% categories.forEach((category, index) => { %>
+                        <a href="/category/<%= category.category_id %>"><%= category.category_name %></a><%= index < categories.length - 1 ? ', ' : '' %>
+                    <% }); %>
+                <% } %>
+            </li>
             
         </ul>
 

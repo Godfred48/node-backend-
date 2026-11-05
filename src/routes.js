@@ -3,7 +3,7 @@ import express from 'express';
 import { showHomePage } from './controllers/index.js';
 import { showCategoriesPage } from './controllers/categories.js';
 import { showOrganizationsPage } from './controllers/organization.js';
-import { showProjectsPage } from './controllers/projects.js';
+import { showProjectsPage, showNewProjectForm, processNewProjectForm } from './controllers/projects.js';
 import { testErrorPage } from './controllers/errors.js';
 import { showProjectDetailsPage } from './controllers/projects.js';
 import { showCategoryDetailsPage } from './controllers/categories.js';
@@ -23,6 +23,8 @@ router.get('/new-organization', showNewOrganizationForm);
 router.post('/new-organization',organizationValidation, processNewOrganizationForm);
 router.get('/edit-organization/:id', showEditOrganizationForm);
 router.post('/edit-organization/:id', organizationValidation, processEditOrganizationForm);
+router.get('/new-project', showNewProjectForm);
+router.post('/new-project', processNewProjectForm);
 // error-handling routes
 router.get('/test-error', testErrorPage);
 
