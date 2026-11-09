@@ -5,6 +5,7 @@
  import { createProject } from '../models/projects.js';
  import { getAllOrganizations } from '../models/organizations.js';
  import { body , validationResult } from 'express-validator'; //imported from express to validate for before processing 
+ import { updateProject } from '../models/projects.js';
 
  //define validation and sanitation rules for new project form
  const projectValidation = [
@@ -82,4 +83,40 @@ const processNewProjectForm = async (req, res) => {
        res.redirect('/new-project');
    }
 }
-export { showProjectsPage, showProjectDetailsPage, showNewProjectForm, projectValidation, processNewProjectForm };
+
+//controller to show edit project form
+const showEditProjectForm = async (req, res) => {
+   const projectId = req.params.id;
+   const organizationId = req.params.organizationId;
+   const projectDetails = await getProjectsDetails(projectId);
+   const organizations = await getAllOrganizations(organizationId)
+
+   const title = 'Edit Service Project';
+   res.render('edit-project', {title, projectDetails, organizations});
+};
+
+//controller to proceess the edit project forrm
+const processEditProjectForm = async(req, res) =>{
+   const projectId = req.params.id;
+   const { title, description, location, date, organizationId} = req.body;
+   await updateProject(projectId, title, description, location, date, organizationId);
+
+   //check for validation
+   const results = validationResult(req);
+   if (!results.isEmpty()){
+      // Validation failed - loop through errors
+      results.array().forEach((error)=>{
+         req.flash('error', error.msg);
+      });
+      
+    // Redirect back to the edit project form
+    return res.redirect('/edit-project/' + req.params.id);
+   }
+
+  //set flash message
+  req.flash( 'success', 'Service project updated successfully');
+  //redirect to project dedtail page 
+  res.redirect(`/project/${projectId}`);
+}
+
+export { showProjectsPage, showProjectDetailsPage, showNewProjectForm, showEditProjectForm ,projectValidation, processNewProjectForm , processEditProjectForm};
