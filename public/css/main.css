@@ -541,3 +541,39 @@ main form button[type="submit"]:focus {
   color: var(--ink);
   background: #fff;
 }
+
+/* ===== Checkbox List Styling ===== */
+.form-group .checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 0.5rem;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.form-group .checkbox-item:hover {
+  background: #fff;
+  border-color: var(--gold);
+}
+
+.form-group .checkbox-item input[type="checkbox"] {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--navy);
+  cursor: pointer;
+  margin: 0;
+}
+
+.form-group .checkbox-item label {
+  display: inline;
+  margin-bottom: 0;
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+}

@@ -39,4 +39,29 @@ const getCategoriesByServiceProjectId = async(projectId) => {
 
 }
 
-export { getAllCategories, getCategoryById, getCategoriesByServiceProjectId};
+//function to assign category to project
+const assignCategoryToProject = async(projectId, categoryId) => {
+    const query = `
+        INSERT INTO project_categories (project_id, category_id)
+        VALUES ($1, $2);
+    `;
+
+    await db.query(query, [projectId, categoryId]);
+}
+
+//functon to update the category assigned 
+const updateCategoryAssignments = async(projectId, categoryIds) => {
+    // First, remove existing category assignments for the project
+    const deleteQuery = `
+        DELETE FROM project_categories
+        WHERE project_id = $1;
+    `;
+    await db.query(deleteQuery, [projectId]);
+
+    // Next, add the new category assignments
+    for (const categoryId of categoryIds) {
+        await assignCategoryToProject(projectId, categoryId);
+    }
+}
+
+export { getAllCategories, getCategoryById, getCategoriesByServiceProjectId, updateCategoryAssignments};
