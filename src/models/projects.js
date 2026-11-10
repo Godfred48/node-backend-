@@ -147,7 +147,7 @@ const updateProject = async (title, description, projectLocation, projectDate, o
     };
 
     if (process.env.ENABLE_SQL_LOGGING === 'true') {
-        console.log('Updated organization with ID:', organizationId);
+        console.log('Updated organization with ID:', projectId);
       };
 
     return results.rows[0].project_id;

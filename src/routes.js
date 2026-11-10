@@ -10,6 +10,7 @@ import { showCategoryDetailsPage } from './controllers/categories.js';
 import {  showOrganizationDetailsPage ,showNewOrganizationForm, processNewOrganizationForm, organizationValidation} from './controllers/organization.js';
 import { showEditOrganizationForm , processEditOrganizationForm } from './controllers/organization.js';
 import { processAssignCategoriesForm, showAssignCategoriesForm } from './controllers/categories.js';
+import { showEditProjectForm, processEditProjectForm } from './controllers/projects.js';
 
 
 const router = express.Router(); //assign Router from express as router
@@ -31,6 +32,8 @@ router.post('/new-project', projectValidation, processNewProjectForm);
 // Routes to handle the assign categories to project form
 router.get('/assign-categories/:projectId', showAssignCategoriesForm);
 router.post('/assign-categories/:projectId', processAssignCategoriesForm);
+router.get( '/edit-project/:id', showEditProjectForm);
+router.post('/edit-project/:id', projectValidation, processEditProjectForm);
 // error-handling routes
 router.get('/test-error', testErrorPage);
 

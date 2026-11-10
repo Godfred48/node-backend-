@@ -97,9 +97,8 @@ const showEditProjectForm = async (req, res) => {
 
 //controller to proceess the edit project forrm
 const processEditProjectForm = async(req, res) =>{
+   console.log(req.body);   // temporary: remove after testing
    const projectId = req.params.id;
-   const { title, description, location, date, organizationId} = req.body;
-   await updateProject(projectId, title, description, location, date, organizationId);
 
    //check for validation
    const results = validationResult(req);
@@ -108,11 +107,14 @@ const processEditProjectForm = async(req, res) =>{
       results.array().forEach((error)=>{
          req.flash('error', error.msg);
       });
-      
-    // Redirect back to the edit project form
-    return res.redirect('/edit-project/' + req.params.id);
-   }
 
+      // Redirect back to the edit project form
+    return res.redirect('/edit-project/' + req.params.id);
+
+   }
+   const { title, description, location, date, organizationId} = req.body;
+   await updateProject(title, description, location, date, organizationId, projectId,);
+      
   //set flash message
   req.flash( 'success', 'Service project updated successfully');
   //redirect to project dedtail page 
