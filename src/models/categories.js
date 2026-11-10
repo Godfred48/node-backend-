@@ -62,6 +62,28 @@ const updateCategoryAssignments = async(projectId, categoryIds) => {
     for (const categoryId of categoryIds) {
         await assignCategoryToProject(projectId, categoryId);
     }
+};
+
+//function to create new category
+const createNewCategory = async (categoryName) => {
+    const query =`
+    INSERT INTO categories(category_name)
+    VALUES ($1)
+    RETURNING category_id;
+    `;
+    const queryParams = [categoryName];
+    const result = await db.query(query, queryParams);
+
+    if (result.rows.length === 0){
+        throw new Error ('Failed to create category');
+    }
+
+    //display in terminal if in development mode 
+    if (process.env.ENABLE_SQL_LOGGING === 'true') {
+        console.log('Created new category with ID:', result.rows[0].category_id);
+    }
+
+    return result.rows[0].category_id;
 }
 
-export { getAllCategories, getCategoryById, getCategoriesByServiceProjectId, updateCategoryAssignments};
+export { getAllCategories, getCategoryById, getCategoriesByServiceProjectId, updateCategoryAssignments,createNewCategory};

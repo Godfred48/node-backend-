@@ -1,7 +1,7 @@
 import express from 'express';
 
 import { showHomePage } from './controllers/index.js';
-import { showCategoriesPage } from './controllers/categories.js';
+import { categoryValidation, showCategoriesPage } from './controllers/categories.js';
 import { showOrganizationsPage } from './controllers/organization.js';
 import { showProjectsPage, showNewProjectForm, processNewProjectForm, projectValidation} from './controllers/projects.js';
 import { testErrorPage } from './controllers/errors.js';
@@ -11,6 +11,7 @@ import {  showOrganizationDetailsPage ,showNewOrganizationForm, processNewOrgani
 import { showEditOrganizationForm , processEditOrganizationForm } from './controllers/organization.js';
 import { processAssignCategoriesForm, showAssignCategoriesForm } from './controllers/categories.js';
 import { showEditProjectForm, processEditProjectForm } from './controllers/projects.js';
+import { showNewCategoryForm, processNewCategoryForm } from './controllers/categories.js';
 
 
 const router = express.Router(); //assign Router from express as router
@@ -34,6 +35,8 @@ router.get('/assign-categories/:projectId', showAssignCategoriesForm);
 router.post('/assign-categories/:projectId', processAssignCategoriesForm);
 router.get( '/edit-project/:id', showEditProjectForm);
 router.post('/edit-project/:id', projectValidation, processEditProjectForm);
+router.get('/new-category', showNewCategoryForm);
+router.post('/new-category', categoryValidation, processNewCategoryForm);
 // error-handling routes
 router.get('/test-error', testErrorPage);
 

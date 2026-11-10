@@ -4,6 +4,19 @@ import { getCategoryById } from '../models/categories.js';
 import { getProjectsDetails } from '../models/projects.js';
 import { getCategoriesByServiceProjectId } from '../models/categories.js';
 import { updateCategoryAssignments } from '../models/categories.js';
+import { createNewCategory } from '../models/categories.js';
+import { body, validationResult} from 'express-validator';
+
+const categoryValidation = [
+  body('categoryName')
+      .trim()//take off all white space before and after 
+      .notEmpty() //make sure the name field is not empty
+      .withMessage('Category name is required')//message to appear if the notEmpty ins false 
+      .isLength({min: 3, max: 100 }) //determines the length of name 
+      .withMessage('Category name must be between 3 to 150 characters'),//message when isLength is false 
+]
+
+
 //controller for displaying results to the categories main page
 const showCategoriesPage = async(req, res) => {
   const categories = await getAllCategories();
@@ -50,4 +63,29 @@ const processAssignCategoriesForm = async (req, res) => {
 
 }
 
-export { showCategoriesPage, showCategoryDetailsPage, processAssignCategoriesForm, showAssignCategoriesForm}
+const showNewCategoryForm = (req, res) => {
+  const title = 'New Category Form';
+  res.render('new-category', {title});
+
+}
+
+const processNewCategoryForm = async (req, res) => {
+  const results = validationResult(req);
+  if (!results.isEmpty()){
+    results.array().forEach((error) => {
+      req.flash('error', error.msg);
+    });
+
+    return res.redirect('/new-category');
+  };
+
+  const {categoryName} = req.body;
+  const categoryId = await createNewCategory(categoryName);
+
+   //set a success flash message 
+   req.flash( 'success', 'Category created successfully!');
+   res.redirect(`/category/${categoryId}`)  //we redirect to a different page automatically after the organization is created and id is generated
+ 
+
+}
+export { showCategoriesPage, showCategoryDetailsPage, processAssignCategoriesForm, showAssignCategoriesForm, categoryValidation, showNewCategoryForm, processNewCategoryForm}
