@@ -97,7 +97,6 @@ const showEditProjectForm = async (req, res) => {
 
 //controller to proceess the edit project forrm
 const processEditProjectForm = async(req, res) =>{
-   console.log(req.body);   // temporary: remove after testing
    const projectId = req.params.id;
 
    //check for validation

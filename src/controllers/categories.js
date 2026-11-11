@@ -4,7 +4,7 @@ import { getCategoryById } from '../models/categories.js';
 import { getProjectsDetails } from '../models/projects.js';
 import { getCategoriesByServiceProjectId } from '../models/categories.js';
 import { updateCategoryAssignments } from '../models/categories.js';
-import { createNewCategory } from '../models/categories.js';
+import { createNewCategory, updateCategories } from '../models/categories.js';
 import { body, validationResult} from 'express-validator';
 
 const categoryValidation = [
@@ -88,4 +88,39 @@ const processNewCategoryForm = async (req, res) => {
  
 
 }
-export { showCategoriesPage, showCategoryDetailsPage, processAssignCategoriesForm, showAssignCategoriesForm, categoryValidation, showNewCategoryForm, processNewCategoryForm}
+
+const showUpdateCategoryForm = async (req ,res) =>{
+  const title = 'Update Category Page';
+  const categoryId = req.params.id;
+  const category = await getCategoryById(categoryId);
+
+  res.render('edit-category', {title, category})
+}
+
+const processUpdateCategoryForm = async(req, res) => {
+  const categoryId = req.params.id;
+
+  //check for validation
+  const results = validationResult(req);
+  if (!results.isEmpty()){
+     // Validation failed - loop through errors
+     results.array().forEach((error)=>{
+        req.flash('error', error.msg);
+     });
+
+     // Redirect back to the edit category form
+   return res.redirect('/edit-category/' + categoryId);
+
+  }
+
+  const { categoryName } = req.body;
+  await updateCategories(categoryName, categoryId);
+
+  req.flash('success', 'Category updated successfully!');
+  res.redirect(`/category/${categoryId}`);
+}
+export { showCategoriesPage, showCategoryDetailsPage, 
+  processAssignCategoriesForm, showAssignCategoriesForm, 
+  categoryValidation, showNewCategoryForm, 
+  processNewCategoryForm, showUpdateCategoryForm, 
+  processUpdateCategoryForm}
