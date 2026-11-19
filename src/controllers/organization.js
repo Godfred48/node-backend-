@@ -85,9 +85,6 @@ const showEditOrganizationForm = async (req, res) => {
 //function to process editorganization form
 const processEditOrganizationForm = async (req, res) => {
   const organizationId = req.params.id;
-  const { name, description, contactEmail, logoFilename } = req.body;
-  await updateOrganization(organizationId, name, description, contactEmail, logoFilename);
-
 
   // Check for validation errors
 const results = validationResult(req);
@@ -100,6 +97,10 @@ if (!results.isEmpty()) {
     // Redirect back to the edit organization form
     return res.redirect('/edit-organization/' + req.params.id);
 }
+
+
+  const { name, description, contactEmail, logoFilename } = req.body;
+  await updateOrganization(organizationId, name, description, contactEmail, logoFilename);
 
   //set flash message
   req.flash( 'success', 'Organization updated successfully');

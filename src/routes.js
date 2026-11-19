@@ -12,6 +12,7 @@ import { showEditOrganizationForm , processEditOrganizationForm } from './contro
 import { processAssignCategoriesForm, showAssignCategoriesForm } from './controllers/categories.js';
 import { showEditProjectForm, processEditProjectForm } from './controllers/projects.js';
 import { showNewCategoryForm, processNewCategoryForm, showUpdateCategoryForm, processUpdateCategoryForm} from './controllers/categories.js';
+import { showUserRegistrationForm, processUserRegistrationForm ,showLoginForm,processLoginForm, processLogout, requireLogin, showDashboard} from './controllers/user.js';
 
 
 const router = express.Router(); //assign Router from express as router
@@ -39,6 +40,14 @@ router.get('/new-category', showNewCategoryForm);
 router.post('/new-category', categoryValidation, processNewCategoryForm);
 router.get('/edit-category/:id', showUpdateCategoryForm);
 router.post('/edit-category/:id', categoryValidation, processUpdateCategoryForm);
+// User registration routes
+router.get('/register', showUserRegistrationForm);
+router.post('/register', processUserRegistrationForm);
+router.get('/login', showLoginForm);
+router.post('/login', processLoginForm);
+router.get('/logout', processLogout);
+// Protected dashboard route
+router.get('/dashboard', requireLogin, showDashboard);
 // error-handling routes
 router.get('/test-error', testErrorPage);
 

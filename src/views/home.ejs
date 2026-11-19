@@ -9,5 +9,9 @@
     <img class="main-logo" src="images/cse340-service-network.png" alt="CSE 340 Service Network Logo">
 
 </main>
+<!---shows when user is loggeewd -->
+<% if (isLoggedIn) { %>
+    <p><a href="/dashboard">My Dashboard</a></p>
+<% } %>
 
 <%- include('partials/footer') %>
