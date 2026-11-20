@@ -577,3 +577,80 @@ main form button[type="submit"]:focus {
   cursor: pointer;
   user-select: none;
 }
+
+/* ===== Users table ===== */
+.users-table {
+  width: 100%;
+  margin-top: 1.5rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+  font-size: 1rem;
+}
+
+.users-table thead th {
+  padding: 0.9rem 1.25rem;
+  text-align: left;
+  color: #fff;
+  background: var(--navy);
+  font-weight: normal;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 3px solid var(--gold);
+}
+
+.users-table tbody td {
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.users-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Zebra stripes */
+.users-table tbody tr:nth-child(even) {
+  background: var(--cream);
+}
+
+/* Row highlight on hover */
+.users-table tbody tr {
+  transition: background 0.15s;
+}
+
+.users-table tbody tr:hover {
+  background: #f3ecd9;
+}
+
+/* Name column stands out */
+.users-table tbody td:first-child {
+  color: var(--navy);
+  font-weight: bold;
+}
+
+/* Email column is slightly muted */
+.users-table tbody td:nth-child(2) {
+  color: var(--muted);
+  word-break: break-word;
+}
+
+/* Small screens: let the table scroll sideways instead of breaking the layout */
+@media (max-width: 600px) {
+  .users-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 0.95rem;
+  }
+
+  .users-table thead th,
+  .users-table tbody td {
+    padding: 0.7rem 0.9rem;
+  }
+}

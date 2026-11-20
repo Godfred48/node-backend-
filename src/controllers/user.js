@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import { createUser, authenticateUser} from '../models/user.js';
+import { getAllUsers } from '../models/user.js';
 
 
 //conntroller to display registration form
@@ -115,6 +116,13 @@ const requireRole = (role) => {
     };
 };
 
+
+
+const showUsersPage = async (req, res) => {
+    const users = await getAllUsers();
+    res.render('users', { title: 'Registered Users', users });
+};
+
 export{ showUserRegistrationForm, processUserRegistrationForm,
      processLoginForm, showLoginForm, processLogout, 
-     requireLogin, showDashboard, requireRole};
+     requireLogin, showDashboard, requireRole, showUsersPage};

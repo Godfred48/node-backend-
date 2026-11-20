@@ -9,4 +9,8 @@
 
 </main>
 
+<% if (user && user.role_name ==='admin') { %>
+    <p><a href="/users">View all registered users</a></p>
+<% } %>
+
 <%- include('partials/footer') %>

@@ -26,8 +26,9 @@ const createUser = async (name, email, passwordHash) => {
 
 //function too find user by email
 const findUserByEmail = async (email) =>{
+    //as you find user it returns users roles as well. Also after returning user detail in sessionit inncludes user role.
     const query = `
-    SELECT u.user_id, u.email, u.password_hash, r.role_name 
+    SELECT u.user_id,u.name, u.email, u.password_hash, r.role_name 
     FROM users u
     JOIN roles r ON u.role_id = r.role_id
     WHERE u.email = $1
@@ -73,4 +74,19 @@ const authenticateUser = async (email, password) => {
     return user;
 };
 
-export { createUser, authenticateUser };
+//function to get all the all users 
+const getAllUsers = async () => {
+    const query = `
+        SELECT u.user_id, u.name, u.email, r.role_name
+        FROM users u
+        JOIN roles r ON u.role_id = r.role_id
+        ORDER BY u.name ASC;
+    `;
+    const result = await db.query(query);
+    return result.rows;
+};
+
+export { createUser, authenticateUser, getAllUsers };
+
+
+

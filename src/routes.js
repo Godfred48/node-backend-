@@ -12,7 +12,7 @@ import { showEditOrganizationForm , processEditOrganizationForm } from './contro
 import { processAssignCategoriesForm, showAssignCategoriesForm } from './controllers/categories.js';
 import { showEditProjectForm, processEditProjectForm } from './controllers/projects.js';
 import { showNewCategoryForm, processNewCategoryForm, showUpdateCategoryForm, processUpdateCategoryForm} from './controllers/categories.js';
-import { showUserRegistrationForm, processUserRegistrationForm ,showLoginForm,processLoginForm, processLogout, requireLogin, showDashboard, requireRole} from './controllers/user.js';
+import { showUserRegistrationForm, processUserRegistrationForm ,showLoginForm,processLoginForm, processLogout, requireLogin, showDashboard, requireRole ,showUsersPage} from './controllers/user.js';
 
 
 const router = express.Router(); //assign Router from express as router
@@ -40,6 +40,7 @@ router.get('/new-category', requireRole('admin'),showNewCategoryForm);
 router.post('/new-category', requireRole('admin'),categoryValidation, processNewCategoryForm);
 router.get('/edit-category/:id', requireRole('admin'),showUpdateCategoryForm);
 router.post('/edit-category/:id', requireRole('admin'),categoryValidation, processUpdateCategoryForm);
+router.get('/users', requireRole('admin'), showUsersPage);
 // User registration routes
 router.get('/register', showUserRegistrationForm);
 router.post('/register', processUserRegistrationForm);
