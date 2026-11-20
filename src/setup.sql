@@ -114,6 +114,7 @@ INSERT INTO project_categories (project_id, category_id) VALUES
 
 SELECT * FROM project_categories;
 
+
 ---table for roles 
 CREATE TABLE roles(
    role_id SERIAL PRIMARY KEY,
@@ -128,7 +129,8 @@ INSERT INTO roles (role_name, role_description) VALUES
 
 SELECT * FROM roles;
 
----creating user table 
+
+
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -137,3 +139,13 @@ CREATE TABLE users (
     role_id INTEGER REFERENCES roles(role_id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+SELECT * FROM users ;
+SELECT * FROM roles;
+
+---update role of admin from user to admin
+-- Update the dedicated admin testing account to have admin role
+UPDATE users SET role_id = (SELECT role_id FROM roles WHERE role_name = 'admin') WHERE email = 'admin@example.com';
+
+-- Verify the update by listing all users and their roles
+SELECT users.user_id, users.email, roles.role_name FROM users JOIN roles ON users.role_id = roles.role_id;
