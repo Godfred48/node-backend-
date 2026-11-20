@@ -12,8 +12,10 @@
             <% }); %>
         </ul>
         <br>
-        <!---add new organization link-->
-        <p><a href="/new-organization">Add a new organization</a></p>
+        <!---add new organization link available for only admin-->
+        <% if (user && user.role_name === 'admin') { %>
+            <a href="/new-organization">Add New Organization</a>
+        <% } %>
     </main>
 
 <%- include('partials/footer') %>

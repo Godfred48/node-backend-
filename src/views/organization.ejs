@@ -15,7 +15,11 @@
     </ul>
     <br>
     <!--link to edit organization details -->
-    <p><a href="/edit-organization/<%= organizationDetails.organization_id %>">Edit Organization</a></p>
+     <!---add new organization link available for only admin-->
+     <% if (user && user.role_name === 'admin') { %>
+        <p><a href="/edit-organization/<%= organizationDetails.organization_id %>">Edit Organization</a></p>
+    <% } %>
+    
 
 </main>
 <%- include('partials/footer') %>

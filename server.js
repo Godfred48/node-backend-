@@ -56,10 +56,15 @@ app.use(express.json());
 
 //making the node environment available for all pages....view footer it has been passed
 app.use((req, res, next) =>{
+  //makes login details availale to all pagee checking if user is signed or not
   res.locals.isLoggedIn = false;
   if (req.session && req.session.user) {
       res.locals.isLoggedIn = true;
   }
+
+  //makes session details available to all pges for either admin role or user role
+  res.locals.user = req.session.user || null;
+
   res.locals.NODE_ENV = NODE_ENV //res.locals helps store values in middleware 
   next() //runs the next non-error middleware
 });
